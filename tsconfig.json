@@ -6,6 +6,8 @@
       "@/*": ["src/*"],
     },
     "allowSyntheticDefaultImports": true,
+    // "downlevelIteration": true,
+    "experimentalDecorators": true,
     "jsx": "preserve",
     "lib": ["dom", "es2017"],
     "module": "esnext",

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import Header from '@/component/header'
+import Wrapper from './Wrapper'
 import './App.scss'
 
+@Wrapper
 class App extends React.Component {
     public render() {
         return (
             <React.Fragment>
-                <Header/>
                 <div className="App">app</div>
             </React.Fragment>
         )

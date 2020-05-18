@@ -6,6 +6,12 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
+const express = require('express')
+const app = express()
+const mockData = require('../public/likes.json')
+const apiRoutes = express.Router()
+app.use(apiRoutes)
+
 module.exports = {
     entry: {
         app: './src/index.tsx'
@@ -77,6 +83,15 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
         alias: {
             "@": path.resolve(__dirname, '../src/')
+        }
+    },
+    devServer: {
+        before(app) {
+          app.get('/api/likes-data',(req,res) => {
+              res.json({
+                  data: mockData
+              })
+          })
         }
     }
 }
