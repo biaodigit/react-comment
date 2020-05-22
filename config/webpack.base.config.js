@@ -12,10 +12,9 @@ const mockData = require('../public/likes.json')
 const apiRoutes = express.Router()
 app.use(apiRoutes)
 
+const isDev = process.env.NODE_ENV === 'development'
+
 module.exports = {
-    entry: {
-        app: './src/index.tsx'
-    },
     output: {
         filename: '[name].[hash].js',
         chunkFilename: '[name].[chunk].js',
@@ -37,7 +36,7 @@ module.exports = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
@@ -61,10 +60,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name].[contenthash].css',
-            chunkFilename: '[name].chunk.css'
-        }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../template/index.html')
         }),
@@ -73,7 +68,7 @@ module.exports = {
             async: false,
             tsconfig: path.resolve(__dirname, '../tsconfig.json')
         }),
-        new OpenBrowserPlugin({ url: 'http://127.0.0.1:7777' })
+        // new OpenBrowserPlugin({ url: 'http://127.0.0.1:7777' })
     ],
     externals: {
         react: 'React',
@@ -89,7 +84,7 @@ module.exports = {
         before(app) {
           app.get('/api/likes-data',(req,res) => {
               res.json({
-                  data: mockData
+                  list: mockData
               })
           })
         }

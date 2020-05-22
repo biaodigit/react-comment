@@ -24,8 +24,10 @@
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -56,9 +58,10 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^3.0.0",
-    "react-hot-loader": "^4.12.20",
+    "react-hot-loader": "^4.12.21",
     "redux-devtools": "^3.5.0",
     "sass-loader": "^8.0.0",
+    "style-loader": "^1.2.1",
     "tslib": "^1.11.1",
     "typescript": "^3.8.3",
     "url-loader": "^2.1.0",

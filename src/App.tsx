@@ -1,16 +1,32 @@
-import * as React from 'react';
-import Wrapper from './Wrapper'
-import './App.scss'
+import * as React from "react";
+import { hot } from "react-hot-loader/root";
+import Wrapper from "./Wrapper";
+import request from "@/utils/request";
+import "./App.scss";
 
-@Wrapper
-class App extends React.Component {
-    public render() {
-        return (
-            <React.Fragment>
-                <div className="App">app</div>
-            </React.Fragment>
-        )
-    }
+interface State {
+  count: number;
 }
 
-export default App;
+// @Wrapper
+class App extends React.Component<{}, State> {
+  state: State = { count: 0 };
+  public componentDidMount() {
+    request.get("/likes-data").then((res) => {
+      console.log(res);
+    });
+  }
+  public render() {
+    let { count } = this.state;
+    return (
+      <React.Fragment>
+        <div className="App">app</div>
+        <p>{count}</p>
+        <div onClick={() => this.setState({ count: count + 1 })}>button</div>
+        <h3>hahahfffhf!!!!</h3>
+      </React.Fragment>
+    );
+  }
+}
+
+export default hot(App);
