@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux'
 import entities from './entities'
 import views from './views'
-import base from './base'
+import app from './app'
 
 const rootReducers = combineReducers({
     entities,
     views,
-    base
+    app
 })
 
 export default rootReducers

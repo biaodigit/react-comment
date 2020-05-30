@@ -1,32 +1,47 @@
 import * as React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import { hot } from "react-hot-loader/root";
 import Wrapper from "./Wrapper";
+import ErrorToast from "@/component/error_toast";
 import request from "@/utils/request";
+import { actions as appActions, getError } from "@/store/modules/app";
 import "./App.scss";
 
 interface State {
-  count: number;
+  // count: number;
 }
 
-// @Wrapper
-class App extends React.Component<{}, State> {
-  state: State = { count: 0 };
+interface Props {
+  error: string;
+  clearError: () => void
+}
+
+class App extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+  }
+
   public componentDidMount() {
-    request.get("/likes-data").then((res) => {
-      console.log(res);
-    });
+    console.log(this.props)
   }
   public render() {
-    let { count } = this.state;
-    return (
-      <React.Fragment>
-        <div className="App">app</div>
-        <p>{count}</p>
-        <div onClick={() => this.setState({ count: count + 1 })}>button</div>
-        <h3>hahahfffhf!!!!</h3>
-      </React.Fragment>
-    );
+    const {error,clearError} = this.props
+    return <div className="App"><ErrorToast msg={error} clearError={clearError}/></div>;
   }
 }
 
-export default hot(App);
+const mapStateToProps = (state, props) => {
+  console.log(state.app.error)
+  return {
+    error: getError(state)
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    appActions: bindActionCreators(appActions, dispatch),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(hot(Wrapper(App)));

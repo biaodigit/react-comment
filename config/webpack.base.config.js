@@ -72,7 +72,8 @@ module.exports = {
     ],
     externals: {
         react: 'React',
-        'react-dom': 'ReactDOM'
+        'react-dom': 'ReactDOM',
+        axios: 'axios'
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],

@@ -1,12 +1,16 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 
-const BorderHoc = WrappedComponent => class extends Component {
+type injectProps = {
+  error:string
+}
+
+const BorderHoc = (WrappedComponent: React.ComponentType) => class extends React.Component {
   public componentDidMount() {
-      console.log('boreder hoc')
+      console.log(this.props)
   }
   public render() {
-    return <div style={{ border: 'solid 1px red' }}>
-      <WrappedComponent />
+    return <div>
+      <WrappedComponent {...this.props}/>
     </div>
   }
 }
