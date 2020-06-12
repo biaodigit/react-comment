@@ -3,7 +3,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { hot } from "react-hot-loader/root";
 import Wrapper from "./Wrapper";
-import ErrorToast from "@/component/error_toast";
+import Home from './views/home'
+import ErrorToast from "@/components/error_toast";
 import request from "@/utils/request";
 import { actions as appActions, getError } from "@/store/modules/app";
 import "./App.scss";
@@ -27,7 +28,12 @@ class App extends React.Component<Props, State> {
   }
   public render() {
     const {error,clearError} = this.props
-    return <div className="App"><ErrorToast msg={error} clearError={clearError}/></div>;
+    return (
+      <React.Fragment>
+        <Home/>
+        {/* <ErrorToast msg={error} clearError={clearError}/> */}
+      </React.Fragment>
+    )
   }
 }
 

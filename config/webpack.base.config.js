@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const express = require('express')
 const app = express()
@@ -19,6 +19,7 @@ module.exports = {
         filename: '[name].[hash].js',
         chunkFilename: '[name].[chunk].js',
         path: path.resolve(__dirname, '../dist')
+        // publicPath: '/public/'
     },
     module: {
         rules: [
@@ -56,6 +57,14 @@ module.exports = {
                     },
                     'sass-loader'
                 ]
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    name: 'static/image/[name].[hash:7].[ext]'
+                }
             }
         ]
     },
@@ -68,7 +77,18 @@ module.exports = {
             async: false,
             tsconfig: path.resolve(__dirname, '../tsconfig.json')
         }),
-        // new OpenBrowserPlugin({ url: 'http://127.0.0.1:7777' })
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, '../public/favicon.ico'),
+                    to: path.resolve(__dirname, '../dist/public')
+                },
+                {
+                    from: path.resolve(__dirname, '../public/logo.png'),
+                    to: path.resolve(__dirname, '../dist/public')
+                },
+            ]
+        })
     ],
     externals: {
         react: 'React',
@@ -83,11 +103,11 @@ module.exports = {
     },
     devServer: {
         before(app) {
-          app.get('/api/likes-data',(req,res) => {
-              res.json({
-                  list: mockData
-              })
-          })
+            app.get('/api/likes-data', (req, res) => {
+                res.json({
+                    list: mockData
+                })
+            })
         }
     }
 }

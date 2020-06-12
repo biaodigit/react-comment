@@ -1,4 +1,3 @@
-import request from '@/utils/request'
 import url from '@/utils/url'
 import { FETCH_DATA } from '@/store/middleware/api'
 import { schema } from '@/store/modules/entities/products'

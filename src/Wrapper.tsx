@@ -1,17 +1,20 @@
-import * as React from 'react'
+import * as React from "react";
 
 type injectProps = {
-  error:string
-}
+  error: string;
+};
 
-const BorderHoc = (WrappedComponent: React.ComponentType) => class extends React.Component {
-  public componentDidMount() {
-      console.log(this.props)
-  }
-  public render() {
-    return <div>
-      <WrappedComponent {...this.props}/>
-    </div>
-  }
-}
-export default BorderHoc
+const BorderHoc = (WrappedComponent: React.ComponentType) =>
+  class extends React.Component {
+    public componentDidMount() {
+      console.log(this.props);
+    }
+    public render() {
+      return (
+        <React.Fragment>
+          <WrappedComponent {...this.props} />
+        </React.Fragment>
+      );
+    }
+  };
+export default BorderHoc;
