@@ -3,9 +3,9 @@ export const schema = {
     id: 'id'
 }
 
-const initializeState = {}
+const initialState = {}
 
-const reducer = (state = initializeState,action) => {
+const reducer = (state = initialState,action) => {
     if(action.response && action.response.products){
         return {...state,...action.response.products}
     }

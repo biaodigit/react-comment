@@ -4,7 +4,7 @@ export const FETCH_DATA = 'FETCH DATA'
 
 export default (store: any) => (next: any) => (action: any) => {
     const callAPI = action[FETCH_DATA]
-    if (Object.is(callAPI, undefined)) {
+    if (typeof callAPI === 'undefined') {
         return next(action)
     }
 
@@ -23,8 +23,8 @@ export default (store: any) => (next: any) => (action: any) => {
         throw new Error('action type必须为字符串')
     }
 
-    const actionWith = (data:any):any => {
-        const finalAction = [...action,...data]
+    const actionWith = (data: any): any => {
+        const finalAction = { ...action, ...data }
         delete finalAction[FETCH_DATA]
         return finalAction
     }
@@ -44,13 +44,13 @@ export default (store: any) => (next: any) => (action: any) => {
 }
 
 const fetchData = (endpoint: string, schema: any) => {
-    return request.get(endpoint).then((data: any) => {
-        return normalizeData(data, schema)
+    return request.get(endpoint).then((response: ResponseTypes) => {
+        return normalizeData(response.data, schema)
     })
 }
 
 // 根据schema对数据进行扁平化处理
-const normalizeData = (data: any, schema: any) => {
+const normalizeData = (data: any, schema: { id: string, name: string }) => {
     const { id, name } = schema
     let kvObj = Object.create(null)
     let ids = []
@@ -63,6 +63,7 @@ const normalizeData = (data: any, schema: any) => {
         kvObj[data[id]] = data
         ids.push(data[id])
     }
+
     return {
         [name]: kvObj,
         ids

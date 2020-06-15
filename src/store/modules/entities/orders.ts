@@ -1,6 +1,6 @@
-const initializeState = {}
+const initialState = {}
 
-const reducer = (state = initializeState,action) => {
+const reducer = (state = initialState,action) => {
     return state
 }
 

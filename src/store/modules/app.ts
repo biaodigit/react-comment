@@ -1,6 +1,6 @@
 import * as types from './types'
 
-const initializeState = {
+const initialState = {
     error: 'error'
 }
 
@@ -12,7 +12,7 @@ export const actions = {
 
 export const getError = (state) => state.app.error
 
-const reducer = (state = initializeState, action:types.ActionsType) => {
+const reducer = (state = initialState, action:types.ActionsType) => {
     const { type, error } = action
     if (Object.is(type, types.CLEAR_ERROR)) {
         return { ...state, error: null }

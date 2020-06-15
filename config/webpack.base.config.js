@@ -8,7 +8,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const express = require('express')
 const app = express()
-const mockData = require('../public/likes.json')
+const likesMockData = require('../public/likes.json')
+const discountsMockData = require('../public/discounts.json')
 const apiRoutes = express.Router()
 app.use(apiRoutes)
 
@@ -19,7 +20,6 @@ module.exports = {
         filename: '[name].[hash].js',
         chunkFilename: '[name].[chunk].js',
         path: path.resolve(__dirname, '../dist')
-        // publicPath: '/public/'
     },
     module: {
         rules: [
@@ -62,8 +62,8 @@ module.exports = {
                 test: /\.(png|jpe?g|gif|svg)$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 10000,
-                    name: 'static/image/[name].[hash:7].[ext]'
+                    limit: 1000,
+                    name: 'assets/image/[name].[hash:7].[ext]'
                 }
             }
         ]
@@ -81,12 +81,12 @@ module.exports = {
             patterns: [
                 {
                     from: path.resolve(__dirname, '../public/favicon.ico'),
-                    to: path.resolve(__dirname, '../dist/public')
+                    to: path.resolve(__dirname, '../dist/assets')
                 },
-                {
-                    from: path.resolve(__dirname, '../public/logo.png'),
-                    to: path.resolve(__dirname, '../dist/public')
-                },
+                // {
+                //     from: path.resolve(__dirname, '../public/logo.png'),
+                //     to: path.resolve(__dirname, '../dist/public')
+                // },
             ]
         })
     ],
@@ -104,9 +104,10 @@ module.exports = {
     devServer: {
         before(app) {
             app.get('/api/likes-data', (req, res) => {
-                res.json({
-                    list: mockData
-                })
+                res.json(likesMockData)
+            })
+            app.get('/api/discounts-data', (req, res) => {
+                res.json(discountsMockData)
             })
         }
     }

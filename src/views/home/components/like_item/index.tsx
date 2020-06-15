@@ -1,15 +1,7 @@
 import * as React from "react";
 import "./index.scss";
 
-interface Props {
-  tag: string;
-  picture: string;
-  shop: string;
-  product: string;
-  currentPrice: number;
-  oldPrice: number;
-  saleDesc: string;
-}
+interface Props extends LikeItem {}
 
 const LikeItem: React.FC<Props> = (props) => {
   const {

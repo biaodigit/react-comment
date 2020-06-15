@@ -38,7 +38,6 @@ class App extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log(state.app.error)
   return {
     error: getError(state)
   };
@@ -46,7 +45,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    appActions: bindActionCreators(appActions, dispatch),
+    ...bindActionCreators(appActions, dispatch),
   };
 };
 

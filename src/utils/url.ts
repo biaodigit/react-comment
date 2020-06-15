@@ -1,4 +1,4 @@
 export default {
-    getProductList: (rowIndex:number,pageSize:number) => 
-    `/api/likes-data?rowIndex=${rowIndex}&pageSize=${pageSize}`
+    getProductList: (path:string,rowIndex:number,pageSize:number) => 
+    `/${path}-data?rowIndex=${rowIndex}&pageSize=${pageSize}`
 }
