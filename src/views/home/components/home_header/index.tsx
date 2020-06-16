@@ -1,4 +1,5 @@
 import * as React from "react";
+import {Link} from "react-router-dom"
 import "./index.scss"
 
 const HomeHeader: React.FC = () => {
@@ -6,10 +7,10 @@ const HomeHeader: React.FC = () => {
     <div className="homeHeader">
       <header className="homeHeader__wrapper">
         <a className="homeHeader__city">北京</a>
-        <a className="homeHeader__search">输入商户名、地点</a>
-        <a className="homeHeader__self">
+        <Link to="/search" className="homeHeader__search">输入商户名、地点</Link>
+        <Link to="/user" className="homeHeader__self">
           <div className="homeHeader__portrait" />
-        </a>
+        </Link>
       </header>
     </div>
   );

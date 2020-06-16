@@ -1,10 +1,12 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import "./index.scss";
 
 interface Props extends LikeItem {}
 
 const LikeItem: React.FC<Props> = (props) => {
   const {
+    id,
     shop,
     tag,
     picture,
@@ -14,7 +16,7 @@ const LikeItem: React.FC<Props> = (props) => {
     saleDesc,
   } = props;
   return (
-    <a className="likeItem">
+    <Link to={`/detail/${id}`} className="likeItem">
       <div className="likeItem__picContainer">
         <div className="likeItem__picTag">{tag}</div>
         <img className="likeItem__pic" src={picture} />
@@ -30,7 +32,7 @@ const LikeItem: React.FC<Props> = (props) => {
           <div className="likeItem__sale">{saleDesc}</div>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 

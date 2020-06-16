@@ -1,7 +1,7 @@
 import * as types from './types'
 
 const initialState = {
-    error: 'error'
+    error: ''
 }
 
 export const actions = {

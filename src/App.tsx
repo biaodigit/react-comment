@@ -1,21 +1,21 @@
 import * as React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 import Wrapper from "./Wrapper";
-import Home from './views/home'
+import Home from "./views/home";
 import ErrorToast from "@/components/error_toast";
-import request from "@/utils/request";
 import { actions as appActions, getError } from "@/store/modules/app";
 import "./App.scss";
 
 interface State {
-  // count: number;
+
 }
 
 interface Props {
   error: string;
-  clearError: () => void
+  clearError: () => void;
 }
 
 class App extends React.Component<Props, State> {
@@ -23,23 +23,24 @@ class App extends React.Component<Props, State> {
     super(props);
   }
 
-  public componentDidMount() {
-    console.log(this.props)
-  }
   public render() {
-    const {error,clearError} = this.props
+    const { error, clearError } = this.props;
     return (
       <React.Fragment>
-        <Home/>
-        {/* <ErrorToast msg={error} clearError={clearError}/> */}
+        <Router>
+          <Switch>
+            <Route path="/" component={Home} />
+          </Switch>
+        </Router>
+        {error ? <ErrorToast msg={error} clearError={clearError} /> : null}
       </React.Fragment>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state, props) => {
   return {
-    error: getError(state)
+    error: getError(state),
   };
 };
 

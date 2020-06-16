@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import "./index.scss";
 
 interface DiscountProps {
@@ -16,7 +17,11 @@ const Discount: React.FC<DiscountProps> = (props) => {
       </a>
       <div className="discount__content">
         {data.map((item) => (
-          <a key={item.id} className="discount__item">
+          <Link
+            to={`/detail/${item.id}`}
+            key={item.id}
+            className="discount__item"
+          >
             <div className="discount__itemPic">
               <img width="100%" height="100%" src={item.picture} />
             </div>
@@ -27,7 +32,7 @@ const Discount: React.FC<DiscountProps> = (props) => {
               </ins>
               <del className="discount__itemOldPrice">{item.oldPrice}</del>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </div>
