@@ -13,7 +13,11 @@ const config = {
         compress: true,
         port: 7777,
         hot: true,
-        hotOnly: true
+        hotOnly: true,
+        publicPath: '/public/',
+        historyApiFallback: {
+            index: '/public/index.html'
+        }
     },
     plugins: [
         new OpenBrowserPlugin({ url: 'http://127.0.0.1:7777' })

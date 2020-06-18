@@ -17,9 +17,10 @@ const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
     output: {
-        filename: '[name].[hash].js',
-        chunkFilename: '[name].[chunk].js',
-        path: path.resolve(__dirname, '../dist')
+        filename: '[name].[contentash].js',
+        chunkFilename: '[name].chunk.[contentash].js',
+        path: path.resolve(__dirname, '../dist'),
+        publicPath: '/public/'
     },
     module: {
         rules: [
@@ -68,6 +69,19 @@ module.exports = {
             }
         ]
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: 10,
+                    minSize: 30000,
+                    chunks: 'initial',
+                    name: 'vendor'
+                }
+            }
+        }
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../template/index.html')
@@ -82,11 +96,7 @@ module.exports = {
                 {
                     from: path.resolve(__dirname, '../public/favicon.ico'),
                     to: path.resolve(__dirname, '../dist/assets')
-                },
-                // {
-                //     from: path.resolve(__dirname, '../public/logo.png'),
-                //     to: path.resolve(__dirname, '../dist/public')
-                // },
+                }
             ]
         })
     ],

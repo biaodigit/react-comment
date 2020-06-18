@@ -1,17 +1,21 @@
 import * as React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 import Wrapper from "./Wrapper";
 import Home from "./views/home";
+import ProductDetail from "./views/product_detail";
 import ErrorToast from "@/components/error_toast";
 import { actions as appActions, getError } from "@/store/modules/app";
 import "./App.scss";
 
-interface State {
-
-}
+interface State {}
 
 interface Props {
   error: string;
@@ -29,7 +33,9 @@ class App extends React.Component<Props, State> {
       <React.Fragment>
         <Router>
           <Switch>
-            <Route path="/" component={Home} />
+            <Route path="/" exact component={Home} />
+            <Route path="/detail/:id" component={ProductDetail} />Î
+            <Redirect to="/" />
           </Switch>
         </Router>
         {error ? <ErrorToast msg={error} clearError={clearError} /> : null}
