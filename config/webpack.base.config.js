@@ -1,8 +1,8 @@
 const path = require('path')
+const os = require('os')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
@@ -17,8 +17,8 @@ const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
     output: {
-        filename: '[name].[contentash].js',
-        chunkFilename: '[name].chunk.[contentash].js',
+        filename: '[name].[hash].js',
+        chunkFilename: '[name].chunk.[hash].js',
         path: path.resolve(__dirname, '../dist'),
         publicPath: '/public/'
     },
@@ -26,14 +26,23 @@ module.exports = {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
-                use: {
-                    loader: 'awesome-typescript-loader',
-                    options: {
-                        useBabel: true,
-                        useCache: true,
-                        babelCore: '@babel/core'
-                    }
-                }
+                use: [
+                    {
+                        loader: 'thread-loader',
+                        options: {
+                            workers: os.cpus().length
+                        }
+                    },
+                    {
+                        loader: 'awesome-typescript-loader',
+                        options: {
+                            useBabel: true,
+                            useCache: true,
+                            babelCore: '@babel/core'
+                        },
+                    },
+                ],
+                exclude: /node_modules/
             },
             {
                 test: /\.(sa|sc|c)ss$/,
@@ -63,7 +72,7 @@ module.exports = {
                 test: /\.(png|jpe?g|gif|svg)$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 1000,
+                    limit: 100000,
                     name: 'assets/image/[name].[hash:7].[ext]'
                 }
             }
@@ -75,7 +84,7 @@ module.exports = {
                 vendor: {
                     test: /[\\/]node_modules[\\/]/,
                     priority: 10,
-                    minSize: 30000,
+                    minSize: 244000,
                     chunks: 'initial',
                     name: 'vendor'
                 }

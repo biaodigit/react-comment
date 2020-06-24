@@ -4,6 +4,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const merge = require('webpack-merge')
 
 const config = {
+    mode: 'production',
     entry: {
         app: './src/index.tsx'
     },

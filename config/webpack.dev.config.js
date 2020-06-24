@@ -8,6 +8,7 @@ const config = {
         app: ['react-hot-loader/patch', './src/index.tsx']
     },
     devtool: 'cheap-module-eval-source-map',
+    mode: 'development',
     devServer: {
         contentBase: path.join(__dirname, '../dist'),
         compress: true,
